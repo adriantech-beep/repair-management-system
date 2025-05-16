@@ -212,7 +212,7 @@ img {
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  background-color: var(--color-green-700);
+  background-color: var(--color-brand-600);
 
   background-image: radial-gradient(
       circle 16px at 36px 36px,
@@ -276,7 +276,7 @@ img {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background-color: var(--color-green-700);
+  background-color: var(--color-brand-600);
   background-image: radial-gradient(
       circle 10px at 24px 24px,
       var(--base-color) 100%,

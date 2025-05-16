@@ -3,7 +3,7 @@ import { PAGE_SIZE } from "../utilities/constants";
 import supabase, { supabaseUrl } from "./supabase";
 
 export async function getPhones({ filter, sortBy, page }) {
-  let query = supabase.from("phones").select("*", { count: "exact" });
+  let query = supabase.from("job_orders").select("*", { count: "exact" });
 
   if (filter) query = query[filter.method || "eq"](filter.field, filter.value);
 
@@ -39,7 +39,7 @@ export async function createEditPhone(newPhone, id) {
     : `${supabaseUrl}/storage/v1/object/public/phone-images/${imageName}`;
 
   //1. CREATE/Edit
-  let query = supabase.from("phones");
+  let query = supabase.from("job_orders");
 
   //A. CREATE
   if (!id) query = query.insert([{ ...newPhone, image: imagePath }]);
@@ -66,9 +66,7 @@ export async function createEditPhone(newPhone, id) {
   // 3.Delete the phone if there is a problem
 
   if (storageError) {
-    await supabase.from("phones").delete().eq("id", data.id);
-
-    console.log(storageError);
+    await supabase.from("job_orders").delete().eq("id", data.id);
 
     throw new Error(
       "Phone image could not be created and the phone is deleted"
@@ -79,7 +77,10 @@ export async function createEditPhone(newPhone, id) {
 }
 
 export async function deletePhone(id) {
-  const { data, error } = await supabase.from("phones").delete().eq("id", id);
+  const { data, error } = await supabase
+    .from("job_orders")
+    .delete()
+    .eq("id", id);
 
   if (error) {
     console.error(error);
@@ -91,7 +92,7 @@ export async function deletePhone(id) {
 
 export async function getPendingRepairs() {
   const { data, error } = await supabase
-    .from("phones")
+    .from("job_orders")
     .select("completed, waitingForConfirmation"); // Fetch all fields or specify the ones you need
   // Filter where completed is false
 
@@ -104,7 +105,7 @@ export async function getPendingRepairs() {
 }
 
 export async function getAssignedRepairs({ filter }) {
-  let query = supabase.from("phones").select("*");
+  let query = supabase.from("job_orders").select("*");
 
   if (filter) query = query[filter.method || "eq"](filter.field, filter.value);
 
@@ -119,7 +120,7 @@ export async function getAssignedRepairs({ filter }) {
 
 export async function getAssigned(id) {
   const { data, error } = await supabase
-    .from("phones")
+    .from("job_orders")
     .select("*")
     .eq("id", id)
     .single();
@@ -134,7 +135,7 @@ export async function getAssigned(id) {
 
 export async function getSalesAfterDate(date) {
   const { data, error } = await supabase
-    .from("phones")
+    .from("job_orders")
     .select("created_at,cost,success,failed,serviceFee")
     .gte("created_at", date)
     .lte("created_at", getToday({ end: true }));

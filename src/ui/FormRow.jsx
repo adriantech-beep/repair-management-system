@@ -31,14 +31,14 @@ const Label = styled.label`
 `;
 
 const Error = styled.span`
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: var(--color-red-700);
 `;
 
 function FormRow({ label, error, children }) {
   return (
     <StyledFormRow>
-      {label && <Label htmlFor={children.props.id}>{label}</Label>}
+      {label && <Label>{label}</Label>}
       {children}
       {error && <Error>{error}</Error>}
     </StyledFormRow>

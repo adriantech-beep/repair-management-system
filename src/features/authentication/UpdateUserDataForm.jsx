@@ -75,7 +75,9 @@ function UpdateUserDataForm() {
         >
           Cancel
         </Button>
-        <Button disabled={isUpdating}>Update account</Button>
+        <Button variation="primary" disabled={isUpdating}>
+          Update account
+        </Button>
       </FormRow>
     </Form>
   );

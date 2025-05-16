@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 
 const StyledFilter = styled.div`
   border: 1px solid var(--color-grey-100);
-  /* background-color: var(--color-grey-0); */
+  /* background-color: var(--color-brand-600); */
   box-shadow: var(--shadow-sm);
   border-radius: var(--border-radius-sm);
   padding: 0.4rem;
@@ -19,7 +19,7 @@ const FilterButton = styled.button`
   ${(props) =>
     props.active &&
     css`
-      background-color: var(--color-green-700);
+      background-color: var(--color-brand-600);
       color: var(--color-brand-50);
     `}
 
@@ -31,7 +31,7 @@ const FilterButton = styled.button`
   transition: all 0.3s;
 
   &:hover:not(:disabled) {
-    background-color: var(--color-green-700);
+    background-color: var(--color-brand-500);
     color: var(--color-brand-50);
   }
 `;

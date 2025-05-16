@@ -10,7 +10,7 @@ import GlobalStyles from "./styles/GlobalStyles";
 import Assignee from "./pages/Assignee";
 import Phones from "./pages/Phones";
 
-import Settings from "./ui/Settings";
+import Settings from "./pages/Settings";
 import Login from "./pages/Login";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import CreateUser from "./pages/CreateUser";
@@ -26,8 +26,8 @@ const queryClient = new QueryClient({
 });
 function App() {
   return (
-    <DarkModeProvider>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <DarkModeProvider>
         <ReactQueryDevtools initialIsOpen={false} />
         <GlobalStyles />
         <HashRouter>
@@ -73,8 +73,8 @@ function App() {
             },
           }}
         />
-      </QueryClientProvider>
-    </DarkModeProvider>
+      </DarkModeProvider>
+    </QueryClientProvider>
   );
 }
 

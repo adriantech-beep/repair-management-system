@@ -22,12 +22,11 @@ const P = styled.p`
 
 const Buttons = styled.div`
   display: flex;
-  /* width: 100%; */
 `;
 const PaginationButton = styled.button`
   background-color: ${(props) =>
-    props.active ? " var(--color-green-800)" : "var(--color-grey-50)"};
-  color: ${(props) => (props.active ? " var(--color-grey-50)" : "inherit")};
+    props.active ? " var(--color-grey-100)" : "var(--color-grey-50)"};
+  color: ${(props) => (props.active ? " var(--color-grey-700)" : "inherit")};
   border: none;
   border-radius: var(--border-radius-sm);
   font-weight: 500;
@@ -54,7 +53,7 @@ const PaginationButton = styled.button`
   }
 
   &:hover:not(:disabled) {
-    background-color: var(--color-green-800);
+    background-color: var(--color-brand-500);
     color: var(--color-brand-50);
   }
 `;

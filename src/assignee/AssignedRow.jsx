@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { formatTimestamp } from "../helpers/formatTime";
 import { useNavigate } from "react-router-dom";
 import Status from "../ui/Status";
+import Button from "../ui/Button";
 
 const StyledAssignedArrow = styled.div`
   display: flex;
@@ -12,13 +13,6 @@ const StyledAssignedArrow = styled.div`
   grid-template-columns: 0.18fr 0.18fr 0.2fr 0.25fr 0.3fr 0.2fr 0.1fr;
   border-bottom: 1px solid var(--color-grey-200);
   padding: 0.5em;
-`;
-
-const Button = styled.button`
-  background-color: var(--color-green-800);
-  border: none;
-  border-radius: 12px;
-  color: var(--color-grey-50);
 `;
 
 const statusToTagName = {
@@ -51,7 +45,12 @@ function AssignedRow({
       <div>{phoneCondition}</div>
       <div>{cost}</div>
 
-      <Button onClick={() => navigate(`/assignee/${assignedId}`)}>View</Button>
+      <Button
+        variation="primary"
+        onClick={() => navigate(`/assignee/${assignedId}`)}
+      >
+        View
+      </Button>
     </StyledAssignedArrow>
   );
 }

@@ -89,7 +89,9 @@ function SignupForm() {
         >
           Cancel
         </Button>
-        <Button disabled={isLoading}>Create new user</Button>
+        <Button variation="primary" disabled={isLoading}>
+          Create new user
+        </Button>
       </FormRow>
     </Form>
   );
