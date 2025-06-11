@@ -13,8 +13,8 @@ export function useLogin() {
         email,
         password,
       }),
-    onSuccess: (user) => {
-      queryClient.setQueryData(["user"], user.user);
+    onSuccess: (data) => {
+      queryClient.setQueryData(["user"], data);
       navigate("/dashboard", { replace: true });
     },
     onError: (err) => {

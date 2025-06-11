@@ -12,13 +12,12 @@ function PhonesTable() {
   if (isLoading) return <Loader />;
   return (
     <Menus>
-      <Table columns="0.12fr 0.2fr 0.35fr 0.15fr 0.35fr 0.2fr 0.5fr">
+      <Table columns="0.4fr 0.35fr 0.4fr 0.5fr 0.3fr 0.2fr 0.2fr">
         <Table.Header role="row">
-          <div></div>
-          <div>image</div>
-          <div>Phone model</div>
+          <div>Image</div>
+          <div>Phone Model</div>
           <div>IMEI</div>
-          <div>Phone condition</div>
+          <div>Phone Condition</div>
           <div>Cost</div>
           <div>Status</div>
           <div></div>
@@ -32,7 +31,7 @@ function PhonesTable() {
         />
       </Table>
 
-      <Table.Footer>
+      <Table.Footer className="mt-auto">
         <Pagination count={count} />
       </Table.Footer>
     </Menus>

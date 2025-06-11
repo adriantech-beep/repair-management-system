@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useUser } from "./useUser";
+import useUser from "./useUser";
 import { Logo } from '../../utilities/constants'
 
 const StyledUserAvatar = styled.div`
@@ -29,10 +29,11 @@ const Avatar = styled.img`
 function UserAvatar() {
   const { user } = useUser();
   const { fullName, avatar } = user.user_metadata;
+
   return (
     <StyledUserAvatar>
       <Avatar src={avatar || Logo} alt={`Avatar of ${fullName}`} />
-      <span>{fullName}</span>
+      <span>{ fullName }</span>
     </StyledUserAvatar>
   );
 }

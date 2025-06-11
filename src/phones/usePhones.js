@@ -10,7 +10,7 @@ export function usePhones() {
   const filter =
     !filterValue || filterValue === "all"
       ? null
-      : { field: "isCompleted", value: filterValue };
+      : { field: "status", value: filterValue };
 
   const sortByRaw = searchParams.get("sortByTechnician");
 
@@ -24,7 +24,6 @@ export function usePhones() {
   const {
     isLoading,
     data: { data: phones, count } = {},
-
     error,
   } = useQuery({
     queryKey: ["job_orders", filter, sortBy, page],

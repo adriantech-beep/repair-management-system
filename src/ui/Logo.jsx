@@ -1,4 +1,5 @@
 import { useSettings } from "../settings/useSettings";
+import useUser from "../features/authentication/useUser";
 import styled from "styled-components";
 import EditIcon from "../ui/EditIcon";
 
@@ -15,27 +16,38 @@ const Img = styled.img`
 `;
 
 const TitleLogo = styled.div`
-  letter-spacing: 3px;
+  letter-spacing: 1.2px;
   font-size: 1.2rem;
   position: relative;
   display: flex;
   align-items: center;
 
   h1 {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    font-weight: medium;
   }
 `;
 
 function Logo() {
   const { settings } = useSettings();
+  const { isAuthenticated, isAdmin } = useUser();
   const { company_logo, company_name } = settings ?? {};
 
   return (
     <StyledLogo>
-      <Img src={company_logo} alt="Your Company Logo Here" />
+      <Img 
+        className="mb-4"
+        src={company_logo} 
+        alt="Your Company Logo Here" />
       <TitleLogo>
         <h1>{company_name || `Your company name`}</h1>
-        {settings && Object.keys(settings).length > 0 && <EditIcon />}
+        {
+          isAuthenticated && 
+          isAdmin && 
+          settings && 
+          Object.keys(settings).length > 0 && 
+          <EditIcon />
+        }
       </TitleLogo>
     </StyledLogo>
   );

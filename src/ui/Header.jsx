@@ -1,10 +1,5 @@
 import styled from "styled-components";
-import Logout from "../features/authentication/Logout";
 import UserAvatar from "../features/authentication/UserAvatar";
-import Account from "../features/authentication/Account";
-import ModalWindow from "../ui/ModalWindow";
-import Menus from "./Menus";
-import SignupForm from "../features/authentication/SignupForm";
 import ToggleSwitch from "./ToggleSwitch";
 
 const StyledHeader = styled.header`
@@ -21,9 +16,7 @@ function Header() {
   return (
     <StyledHeader>
       <UserAvatar />
-      <Account />
       <ToggleSwitch />
-      <Logout />
     </StyledHeader>
   );
 }

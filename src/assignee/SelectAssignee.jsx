@@ -1,5 +1,7 @@
-import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
+
+import { useSearchParams } from "react-router-dom";
+import { useAssignee } from '../assignee/useAssignee';
 
 const TechnicianOptions = styled.div`
   display: flex;
@@ -28,12 +30,13 @@ const Button = styled.button`
 
 function SelectAssignee() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { technicians } = useAssignee();
 
-  const filterField = "status";
-  const options = [
-    { value: "Tech-001", label: "Tech-001" },
-    { value: "Tech-002", label: "Tech-002" },
-  ];
+  const filterField = "assignee";
+  const options = technicians && technicians.length && technicians.map((technician, techIndex) => ({
+    value: technician.id,
+    label: technician.name || `Technician 00${techIndex}`
+  }));
 
   function handleClick(value) {
     searchParams.set(filterField, value);
@@ -42,11 +45,13 @@ function SelectAssignee() {
   return (
     <TechnicianOptions>
       <StyledButtonGroup>
-        {options.map((option) => (
-          <Button key={option.value} onClick={() => handleClick(option.value)}>
-            {option.label}
-          </Button>
-        ))}
+        {
+          options.map((option) => (
+            <Button key={option.value} onClick={() => handleClick(option.value)}>
+              {option.label}
+            </Button>
+          ))
+        }
       </StyledButtonGroup>
     </TechnicianOptions>
   );

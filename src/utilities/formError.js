@@ -1,9 +1,9 @@
 import useLogs from "../hooks/useLogs"
 
-export default async function onError( error, customErrorMessage ) {
+export default async function onError( error, customErrorMessage = '' ) {
   const { createLog } = useLogs();
 
-  await createLog( customErrorMessage ?? error, 'error' );
-
-  throw new Error(`Error: ${ customErrorMessage }`)
+  console.error( error )
+  // await createLog( error || error.message || customErrorMessage, 'error' );
+  // throw new Error(`Error: ${ error || error.message || customErrorMessage }`)
 }

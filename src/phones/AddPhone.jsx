@@ -6,8 +6,8 @@ function AddPhone() {
   return (
     <ModalWindow>
       <ModalWindow.Open opens="phone-form">
-        <Button size="medium" $variation="primary">
-          Add new phone
+        <Button size="medium" variation="primary">
+          Add Phone
         </Button>
       </ModalWindow.Open>
       <ModalWindow.Window name="phone-form">

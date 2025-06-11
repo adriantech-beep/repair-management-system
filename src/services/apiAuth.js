@@ -1,4 +1,6 @@
 import supabase, { supabaseUrl } from "./supabase";
+import { jwtDecode } from 'jwt-decode';
+import onError from "../utilities/formError";
 
 export async function signup({ fullName, email, password }) {
   const { data, error } = await supabase.auth.signUp({
@@ -28,15 +30,17 @@ export async function login({ email, password }) {
 }
 
 export async function getCurrentUser() {
-  const { data: session } = await supabase.auth.getSession();
+  try {
+    const { data: session } = await supabase.auth.getSession();
+    if (!session.session) return null;
 
-  if (!session.session) return null;
+    const decoded = jwtDecode( session.session.access_token );
+    const { data } = await supabase.auth.getUser();
 
-  const { data, error } = await supabase.auth.getUser();
-
-  if (error) throw new Error(error.message);
-
-  return data?.user;
+    return { user: data?.user, user_role: decoded?.user_role }
+  } catch (error) {
+    onError( error );
+  }
 }
 
 export async function logout() {

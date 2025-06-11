@@ -8,7 +8,6 @@ const sizes = {
     text-transform: uppercase;
     font-weight: 600;
     text-align: center;
-    background-color: var(--color-green-800);
     border: none;
     outline: none;
     border-radius: 5px;

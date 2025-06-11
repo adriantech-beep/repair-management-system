@@ -1,16 +1,28 @@
 import SpinnerMini from "../../ui/SpinnerMini";
 import { useLogout } from "./useLogout";
 import { FaPowerOff } from "react-icons/fa";
-import ButtonOperation from "../../ui/ButtonOperation";
+import StyledNavLink from "../../ui/StyledNavLink";
+
+const navLinkStyle = {
+  backgroundColor: 'transparent'
+}
 
 function Logout() {
   const { logout, isPending } = useLogout();
 
   return (
-    <ButtonOperation disabled={isPending} onClick={logout} aria-label="Logout">
+    <StyledNavLink
+      style={ navLinkStyle } 
+      disabled={isPending} 
+      onClick={logout} 
+      aria-label="Logout">
+      {
+        !isPending ? 
+        <FaPowerOff /> : 
+        <SpinnerMini />
+      }
       <span>Logout</span>
-      {!isPending ? <FaPowerOff size={20} /> : <SpinnerMini />}
-    </ButtonOperation>
+    </StyledNavLink>
   );
 }
 

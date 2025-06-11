@@ -1,7 +1,7 @@
-import { formatTimestamp } from "../helpers/formatTime";
-
 import styled from "styled-components";
 import Tag from "./Tag";
+import { formatTimestamp } from '../helpers/formatTime';
+import { statusToTagName, displayPhoneDiagnosticStatus } from '../utilities/helpers';
 
 const StyledPhoneDetails = styled.div`
   width: 60rem;
@@ -27,14 +27,10 @@ const ImageAndStatus = styled.div`
     font-size: 1.4rem;
   }
 `;
-const statusToTagName = {
-  true: "green",
-  false: "red",
-};
 
 const Image = styled.div`
   width: 100%;
-  max-width: 12rem;
+  max-width: 50rem;
   padding: 1em;
 
   img {
@@ -59,9 +55,9 @@ const Box = styled.div`
   span {
     font-size: 1.2rem;
   }
+
   p {
     font-size: 1.6rem;
-    font-weight: 600;
   }
 `;
 
@@ -92,8 +88,6 @@ function ViewPhoneDetails({
     phoneModel,
     imei,
     phoneCondition,
-    assignee,
-    completed,
     simtray,
     simcard,
     memorycard,
@@ -102,102 +96,46 @@ function ViewPhoneDetails({
     brokenScreen,
     bulgedBattery,
     brokenChargingpin,
-  } = phoneDetails ? phoneDetails : phoneToEdit;
-
-  const customerDetails = phoneDetails?.customers;
-
-  const { name, address, phoneNumber } = isEditSession
-    ? customerToEdit ?? {}
-    : customerDetails ?? {};
+    status,
+    customers
+  } = phoneDetails;
 
   return (
-    <StyledPhoneDetails>
-      <ImageAndStatus>
-        <Image>
-          <img
-            src={image}
-            alt={`${phoneModel || "A Cellphone"} sample image `}
-          />
-        </Image>
+    <a className="flex flex-col gap-10 items-center bg-white rounded-lg md:flex-row ">
+      <img className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-2/4 md:rounded-none md:rounded-s-lg" src={ image } alt="" />
+      <div className="flex flex-col justify-between p-4 leading-normal">
+        <Tag 
+          className="mb-5"
+          type={statusToTagName(status)}>
+          { status }
+        </Tag>
+        <h2 className="mb-2 text-4xl font-bold tracking-tight text-gray-900">{ phoneModel }</h2>
+        <p className="text-base">IMEI: { imei }</p>
+        <p className="text-base">Created on: {formatTimestamp(created_at)}</p>
+        <p 
+          className="my-10 font-normal text-gray-700 dark:text-gray-400">
+          { phoneCondition }
+        </p>
+
         <div>
-          <Tag type={statusToTagName[completed]}>
-            {completed === true ? "completed" : "ongoing"}
-          </Tag>
-          <p>Assigned to: {assignee}</p>
+          <p>SIM Tray: { displayPhoneDiagnosticStatus(simtray) }</p>
+          <p>SIM Card: { displayPhoneDiagnosticStatus(simcard) }</p>
+          <p>Memory Card: { displayPhoneDiagnosticStatus(memorycard) }</p>
+          <p>SPEN: { displayPhoneDiagnosticStatus(spen) }</p>
+          <p>Charger: { displayPhoneDiagnosticStatus(charger) }</p>
+          <p>Broken Screen: { displayPhoneDiagnosticStatus(brokenScreen) }</p>
+          <p>Bulged Battery: { displayPhoneDiagnosticStatus(bulgedBattery) }</p>
+          <p>Broken Charging Pin: { displayPhoneDiagnosticStatus(brokenChargingpin) }</p>
         </div>
-      </ImageAndStatus>
-      <Details>
-        <div>
-          <p>{formatTimestamp(created_at)}</p>
+
+        <div className="py-2 my-5">
+          <p className="font-bold">{customers?.name}</p>
+          <p>{customers?.phoneNumber}</p>
+          <p>{customers?.address}</p>
         </div>
-        <Box>
-          <p>
-            <span>Customer:</span> {name}
-          </p>
-          <p>
-            <span>Contact number: +</span>
-            {phoneNumber}
-          </p>
-        </Box>
-        <Box>
-          <p>
-            <span>Model:</span>
-            {phoneModel}
-          </p>
-          <p>
-            <span>Imei:</span>
-            {imei}
-          </p>
-        </Box>
-        <Box>
-          <p>
-            <span>Address:</span>
-            {address}
-          </p>
-          <p>
-            <span>Phone condition:</span>
-            {phoneCondition}
-          </p>
-        </Box>
-        <Table>
-          <thead>
-            <tr>
-              <th>Simtray</th>
-              <th>Simcard</th>
-              <th>Memorycard</th>
-              <th>Spen</th>
-              <th>Charger</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{simtray === true ? "✅" : "❌"}</td>
-              <td>{simcard === true ? "✅" : "❌"}</td>
-              <td>{memorycard === true ? "✅" : "❌"}</td>
-              <td>{spen === true ? "✅" : "❌"}</td>
-              <td>{charger === true ? "✅" : "❌"}</td>
-            </tr>
-          </tbody>
-        </Table>
-        <Table>
-          <thead>
-            <tr>
-              <th>Broken Screen</th>
-              <th>Bulged Battery</th>
-              <th>Broken Chargingpin</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{brokenScreen === true ? "✅" : "❌"}</td>
-              <td>{bulgedBattery === true ? "✅" : "❌"}</td>
-              <td>{brokenChargingpin === true ? "✅" : "❌"}</td>
-            </tr>
-          </tbody>
-        </Table>
-      </Details>
-    </StyledPhoneDetails>
-  );
+      </div>
+    </a>
+  )
 }
 
 export default ViewPhoneDetails;

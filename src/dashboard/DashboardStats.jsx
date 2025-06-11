@@ -6,6 +6,7 @@ const StyledDashboardStats = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 2em;
+  height: 15rem;
 `;
 
 function DashboardStats({ phones }) {

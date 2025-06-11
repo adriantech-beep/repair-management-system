@@ -107,6 +107,13 @@ function CreatePhoneForm({ phoneToEdit = {} }) {
   const isWorking = isCreating || isEditing;
 
   function onSubmit(data) {
+    const { 
+      phoneModel,
+      imei,
+      phoneCondition,
+      cost, 
+      assignee } = data;
+
     const image = typeof data.image === "string" ? data.image : data.image[0];
 
     const isAnyChecked = checklistFields.some((field) => data[field]);
@@ -121,11 +128,11 @@ function CreatePhoneForm({ phoneToEdit = {} }) {
 
     clearErrors("checklistGroup");
 
-    if (isEditSession)
+    if (isEditSession){
       editPhone(
         {
           newPhoneData: {
-            ...data,
+            ...{ phoneModel, phoneCondition, imei, cost, assignee },
             image,
             customer_id: isEditSession ? customerToEditId : customerID,
           },
@@ -141,6 +148,7 @@ function CreatePhoneForm({ phoneToEdit = {} }) {
           },
         }
       );
+    }
     else
       createPhone(
         { ...data, image: image, customer_id: customerID },

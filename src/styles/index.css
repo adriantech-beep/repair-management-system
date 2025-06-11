@@ -12,7 +12,10 @@
 */
 
 /* Colors adapted from https://tailwindcss.com/docs/customizing-colors */
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@plugin "daisyui";
 
 :root {
   /* Indigo */

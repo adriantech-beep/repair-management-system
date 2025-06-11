@@ -44,7 +44,7 @@ function App() {
               <Route path="assignee" element={<Assignee />} />
 
               <Route path="assignee/:assignedId" element={<Assigned />} />
-              <Route path="phones" element={<Phones />} />
+              <Route path="job-orders" element={<Phones />} />
               <Route path="createUser" element={<CreateUser />} />
               <Route path="settings" element={<Settings />} />
             </Route>

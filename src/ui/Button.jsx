@@ -5,21 +5,18 @@ import { useSettings } from "../settings/useSettings";
 
 const StyledButton = styled.button`
   font-size: 1em;
-  margin: 1em;
   padding: 0.25em 1em;
-  border-radius: 3px;
+  border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
 
   /* Primary variation */
-  background: ${(props) =>
-    props.$variation === "primary"
-      ? props.$colors.primary
-      : props.$variation === "danger"
-      ? props.$colors.danger
-      : props.$variation === "secondary"
-      ? "transparent"
-      : "var(--color-grey-100)"};
+  background: ${({ $variation, $colors }) => {
+    if ($variation === 'primary') return $colors.primary;
+    if ($variation === 'danger') return $colors.danger;
+    if ($variation === 'secondary') return 'transparent';
+    return 'var(--color-grey-100)';
+  }};
 
   color: ${(props) =>
     props.$variation === "primary"

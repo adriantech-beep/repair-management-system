@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { usePendingRepairs } from "../assignee/usePendingRepairs";
+import { useAssignee } from "../assignee/useAssignee";
 import { calcPercentage } from "../helpers/calcPecrcentage";
-import Stat from "./Stat";
 import { FaBarsProgress } from "react-icons/fa6";
+import Stat from "./Stat";
 
 const StyledProgress = styled.div`
   display: flex;
@@ -79,22 +79,21 @@ const StatusText = styled.span`
 `;
 
 function ProgressCircleComponent() {
-  const { pendingRepairs } = usePendingRepairs();
-
+  const { assignedRepairs } = useAssignee();
   const { completionPercentage, progressStrokeDasharray } =
-    calcPercentage(pendingRepairs);
+    calcPercentage(assignedRepairs);
 
   // tried to use nullish coalescing rather than optional chaining because sometimes the data is undefined or null;
-  const completedCount = (pendingRepairs ?? []).filter(
-    (pending) => pending.completed
+  const completedCount = (assignedRepairs ?? []).filter(
+    (pending) => pending.isCompleted
   ).length;
 
-  const pendingCount = (pendingRepairs ?? []).filter(
-    (pending) => !pending.completed
+  const pendingCount = (assignedRepairs ?? []).filter(
+    (pending) => pending.status === 'pending'
   ).length;
 
-  const confirmationCount = (pendingRepairs ?? []).filter(
-    (pending) => pending.waitingForConfirmation
+  const confirmationCount = (assignedRepairs ?? []).filter(
+    (pending) => pending.status === 'forConfirmation'
   ).length;
 
   return (
@@ -117,7 +116,7 @@ function ProgressCircleComponent() {
       <StatContainer>
         <Stat title="Completed" value={completedCount} icon="🟢" />
         <Stat title="Pending" value={pendingCount} icon="🔴" />
-        <Stat title="for confirmation" value={confirmationCount} icon="✅" />
+        <Stat title="For Confirmation" value={confirmationCount} icon="✅" />
       </StatContainer>
     </StyledProgress>
   );

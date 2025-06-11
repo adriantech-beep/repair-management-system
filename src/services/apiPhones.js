@@ -1,23 +1,21 @@
+import supabase, { supabaseUrl } from "./supabase";
+
 import { getToday } from "../helpers/getToday";
 import { PAGE_SIZE } from "../utilities/constants";
-import supabase, { supabaseUrl } from "./supabase";
+
 import onError from "../utilities/formError";
 
 export async function getPhones({ filter, sortBy, page }) {
   let query = supabase
-    .from("job_orders")
-    .select("*,customers:customer_id(id,name,email,address,phoneNumber)", {
-      count: "exact",
-    });
+                .from("job_orders")
+                .select("*, customers(*)", { count: "exact" });
 
   if (filter) query = query[filter.method || "eq"](filter.field, filter.value);
-
   if (sortBy) query = query[sortBy.method || "eq"](sortBy.field, sortBy.value);
 
   if (page) {
     const from = (page - 1) * PAGE_SIZE;
     const to = from + PAGE_SIZE - 1;
-    //.range()  a method from supabase
     query = query.range(from, to);
   }
 
@@ -58,8 +56,10 @@ export async function createEditPhone(newPhone, id) {
     ({ data, error } = await query
       .update(payload)
       .eq("id", id)
-      .select("*, customers:customer_id(id, name, email, address, phoneNumber)")
-      .single());
+      .select());
+
+    data = result.data;
+    error = result.error;
   }
 
   if (error) throw new Error(error.message);
@@ -92,11 +92,22 @@ export async function deletePhone(id) {
   return;
 }
 
+export async function getTechnicians(){
+  const { data, error } = await supabase
+    .from("user_profiles")
+    .select();
+
+  if (error || data.length === 0) {
+    return await onError( error, 'Unable to fetch list of technicians.')
+  }
+
+  return data;
+}
+
 export async function getPendingRepairs() {
   const { data, error } = await supabase
     .from("job_orders")
-    .select("isCompleted, waitingForConfirmation");
-
+    .select("*")  
 
   if (error) {
     return await onError( error, 'Unable to fetch pending repair resources.');
@@ -106,15 +117,18 @@ export async function getPendingRepairs() {
 }
 
 export async function getAssignedRepairs({ filter }) {
-  let query = supabase.from("job_orders").select("*");
+  let query = supabase
+                .from("job_orders")
+                .select("*")
+                .not("assignee", "is", null);
 
   if (filter) query = query[filter.method || "eq"](filter.field, filter.value);
-
   const { data, error } = await query;
 
   if (error) {
     return await onError( error, 'Unable to load assigned repairs.');
   }
+
   return data;
 }
 

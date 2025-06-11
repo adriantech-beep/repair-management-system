@@ -1,7 +1,3 @@
-import Row from "../ui/Row";
-import PhonesTable from "../phones/PhonesTable";
-import PhonetableOperation from "../phones/PhonetableOperation";
-
 import { theme } from "../styles/theme";
 import styled, { ThemeProvider } from "styled-components";
 import ProgressCircleComponent from "../ui/ProgressCircle";

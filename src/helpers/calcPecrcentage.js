@@ -1,6 +1,6 @@
 export function calcPercentage(tasks = []) {
   //  Completed tasks
-  const completedTasks = tasks.filter((task) => task.completed).length;
+  const completedTasks = tasks.filter((task) => task.isCompleted).length;
 
   // All tasks
   const totalTasks = tasks.length;

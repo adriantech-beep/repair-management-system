@@ -4,9 +4,7 @@ import SortBy from "../ui/SortBy";
 
 const StyledTableOperations = styled.div`
   display: flex;
-  justify-content: right;
   gap: 1.6rem;
-  width: 100%;
 `;
 
 function PhonetableOperation() {
@@ -16,14 +14,16 @@ function PhonetableOperation() {
         filterField="status"
         options={[
           { value: "all", label: "All" },
-          { value: true, label: "Completed" },
-          { value: false, label: "Ongoing" },
+          { value: "completed", label: "Completed" },
+          { value: "pending", label: "Ongoing" },
         ]}
       />
 
       <SortBy
         options={[
           { value: "all", label: "Assigned to all" },
+
+          /* FIXME: Should not be static */
           { value: "Tech-001", label: "Assigned to Tech-001" },
           { value: "Tech-002", label: "Assigned to Tech-002" },
         ]}

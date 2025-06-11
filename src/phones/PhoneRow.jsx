@@ -14,22 +14,21 @@ import { jobOrderStatus } from "../utilities/constants";
 
 const TableRow = styled.div`
   display: grid;
-  grid-template-columns: 0.2fr 0.3fr 0.3fr 0.4fr 0.5fr 0.3fr 0.2fr 0.2fr 0.2fr;
+  grid-template-columns: 0.4fr 0.35fr 0.4fr 0.5fr 0.3fr 0.2fr 0.2fr;
   column-gap: 1.5rem;
   align-items: center;
 
-  padding: 1rem 1.5rem;
+  padding: 4rem 1.5rem;
   &:not(:last-child) {
     border-bottom: 1px solid var(--color-grey-100);
   }
   position: relative;
-  margin-top: 1em;
 `;
 
 const Img = styled.img`
   display: block;
   width: 6.4rem;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: auto 3/2;
   object-fit: cover;
   object-position: center;
   transform: scale(1.5) translateX(-7px);
@@ -85,11 +84,14 @@ function PhoneRow({ phoneDetails = {} }) {
 
   return (
     <TableRow>
-      <div></div>
-      <Img src={image} />
+      <div className="flex justify-center">
+        <Img src={image} />
+      </div>
       <p>{phoneModel}</p>
       <p>{imei}</p>
-      <p>{phoneCondition}</p>
+      <div className="flex wrap overflow-y-hidden max-h-40">
+        { phoneCondition }
+      </div>
       <Cost>{cost}</Cost>
 
       <Tag type={statusToTagName[isCompleted]}>

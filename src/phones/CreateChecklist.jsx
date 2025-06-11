@@ -1,15 +1,14 @@
 import styled from "styled-components";
-import Input from "../ui/Input";
-import InputRow from "../ui/InputRow";
+import Switcher from "../ui/Switcher";
+
+import { jobOrderChecklist } from "../utilities/constants";
 
 const StyledCheckListForm = styled.div`
   width: 80rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 2rem;
-  border-radius: 8px;
+  justify-content: flex-start;
 `;
 
 const CheckListWrapper = styled.div`
@@ -23,113 +22,38 @@ const CheckListWrapper = styled.div`
   }
 `;
 
-const CheckListError = styled.p`
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: var(--color-red-700);
-`;
+const renderChecklist = ( register, handleCheckboxChange, type='accessories' ) => {
+  return jobOrderChecklist
+    .filter((item) => item.type === type)
+    .map(( checklistItem ) => {
+      const { name, label } = checklistItem;
 
-function CreateChecklist({ handleCheckboxChange, register, errors }) {
+      return (
+        <div className="flex">
+          <label htmlFor={ name }>{`With ${label}`}</label>
+          <Switcher 
+            id={ name }
+            name
+            {...register( name )}
+            onChange={handleCheckboxChange}
+          />
+        </div>
+      )
+  })
+}
+
+function CreateChecklist({ handleCheckboxChange, register }) {
   return (
-    <StyledCheckListForm>
-      <CheckListWrapper>
-        <h3>Accesssories</h3>
-        <InputRow label="w/ simtray">
-          <Input
-            type="checkbox"
-            id="simtray"
-            name="simtray"
-            {...register("simtray")}
-            onChange={handleCheckboxChange}
-          />
-        </InputRow>
-        <InputRow label="w/ simcard">
-          <Input
-            type="checkbox"
-            id="simcard"
-            name="simcard"
-            {...register("simcard")}
-            onChange={handleCheckboxChange}
-          />
-        </InputRow>
-
-        <InputRow label="w/ memorycard">
-          <Input
-            type="checkbox"
-            id="memorycard"
-            name="memorycard"
-            {...register("memorycard")}
-            onChange={handleCheckboxChange}
-          />
-        </InputRow>
-
-        <InputRow label="w/ spen">
-          <Input
-            type="checkbox"
-            id="spen"
-            name="spen"
-            {...register("spen")}
-            onChange={handleCheckboxChange}
-          />
-        </InputRow>
-
-        <InputRow label="w/ charger">
-          <Input
-            type="checkbox"
-            id="charger"
-            name="charger"
-            {...register("charger")}
-            onChange={handleCheckboxChange}
-          />
-        </InputRow>
-        {errors.checklistGroup && (
-          <CheckListError>{errors.checklistGroup.message}</CheckListError>
-        )}
-      </CheckListWrapper>
-      <CheckListWrapper>
-        <h3>Physical condition</h3>
-        <InputRow label="Broken Screen?">
-          <Input
-            type="checkbox"
-            id="brokenScreen"
-            name="brokenScreen"
-            {...register("brokenScreen")}
-            onChange={handleCheckboxChange}
-          />
-        </InputRow>
-        <InputRow label="Bulged Battery">
-          <Input
-            type="checkbox"
-            id="bulgedBattery"
-            name="bulgedBattery"
-            {...register("bulgedBattery")}
-            onChange={handleCheckboxChange}
-          />
-        </InputRow>
-        <InputRow label="Broken Chargingpin?">
-          <Input
-            type="checkbox"
-            id="brokenChargingpin"
-            name="brokenChargingpin"
-            {...register("brokenChargingpin")}
-            onChange={handleCheckboxChange}
-          />
-        </InputRow>
-        <InputRow label="Broken Backcover?">
-          <Input
-            type="checkbox"
-            id="brokenBackcover"
-            name="brokenBackcover"
-            {...register("brokenBackcover")}
-            onChange={handleCheckboxChange}
-          />
-        </InputRow>
-
-        {errors.checklistGroup && (
-          <CheckListError>{errors.checklistGroup.message}</CheckListError>
-        )}
-      </CheckListWrapper>
-    </StyledCheckListForm>
+    <StyledCheckList>
+      <CheckList>
+        <h3 className="text-2xl mb-4">Accesssories</h3>
+        { renderChecklist( register, handleCheckboxChange, 'accessories' ) }
+      </CheckList>
+      <CheckList>
+        <h3 className="text-2xl mb-4">Physical Condition</h3>
+        { renderChecklist( register, handleCheckboxChange, 'condition' ) }
+      </CheckList>
+    </StyledCheckList>
   );
 }
 

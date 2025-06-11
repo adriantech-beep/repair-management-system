@@ -1,11 +1,8 @@
 import { useSearchParams } from "react-router-dom";
-import styled from "styled-components";
 import { useSettings } from "../settings/useSettings";
+import styled from "styled-components";
 
 const StyledFilter = styled.div`
-  border: 1px solid var(--color-grey-100);
-  box-shadow: var(--shadow-sm);
-  border-radius: var(--border-radius-sm);
   padding: 0.4rem;
   display: flex;
   justify-content: right;
@@ -13,10 +10,10 @@ const StyledFilter = styled.div`
 `;
 
 const FilterButton = styled.button`
-  background-color: ${(props) =>
-    props.$active ? props.$colors.primary : "var(--color-grey-50)"};
   color: ${(props) =>
-    props.$active ? "var(--color-grey-50)" : "var(--color-grey-900)"};
+    props.$active ? "var(--color-grey-0)" : props.$colors.primary};  
+  background-color: ${(props) =>
+    props.$active ? props.$colors.primary : "var(--color-grey-0)"};
   border: none;
   border-radius: var(--border-radius-sm);
   font-weight: 500;

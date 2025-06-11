@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { formatTimestamp } from "../helpers/formatTime";
+import { statusToTagName } from "../utilities/helpers";
 import { useNavigate } from "react-router-dom";
 import Status from "../ui/Status";
 import Button from "../ui/Button";
@@ -10,15 +11,10 @@ const StyledAssignedArrow = styled.div`
   justify-content: space-between;
 
   display: grid;
-  grid-template-columns: 0.18fr 0.18fr 0.2fr 0.25fr 0.3fr 0.2fr 0.1fr;
+  grid-template-columns: 0.26fr 0.25fr 0.25fr 0.3fr 0.4fr 0.15fr;
   border-bottom: 1px solid var(--color-grey-200);
   padding: 0.5em;
 `;
-
-const statusToTagName = {
-  true: "green",
-  false: "red",
-};
 
 function AssignedRow({
   tech: {
@@ -26,24 +22,25 @@ function AssignedRow({
     created_at,
     imei,
     phoneModel,
-    completed,
     phoneCondition,
-    cost,
+    status,
   },
 }) {
   const navigate = useNavigate();
   const receivedDate = formatTimestamp(created_at);
 
   return (
-    <StyledAssignedArrow>
+    <StyledAssignedArrow className="text-center">
       <div>{receivedDate}</div>
-      <Status type={statusToTagName[completed]}>
-        {completed === false ? "pending" : "done"}
-      </Status>
+      <div>
+        <Status 
+          type={statusToTagName(status)}>
+          { status }
+        </Status>
+      </div>
       <div>{phoneModel}</div>
       <div>{imei}</div>
       <div>{phoneCondition}</div>
-      <div>{cost}</div>
 
       <Button
         variation="primary"

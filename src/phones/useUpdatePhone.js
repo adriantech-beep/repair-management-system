@@ -30,7 +30,9 @@ export function useUpdatePhone(mutationName, successMessage) {
         queryKey: ["job_orders"],
       });
     },
-    onError: (err) => toast.error(err.message),
+    onError: (err) => {
+      toast.error(err.message);
+    }
   });
 
   return { mutate, isLoading };

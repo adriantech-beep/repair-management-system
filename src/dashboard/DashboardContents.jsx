@@ -10,6 +10,8 @@ const StyledDashboardContent = styled.div`
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(8, 1fr);
   gap: 8px;
+
+  max-height: calc(100vh - 5rem);
 `;
 
 const StatWrapper = styled.div`
@@ -39,16 +41,22 @@ function DashboardContents() {
   if (isPending) return <Loader />;
   return (
     <StyledDashboardContent>
-      <StatWrapper>
+      <StatWrapper
+        className="mt-10">
         <DashboardStats phones={phones} />
       </StatWrapper>
+
+      {/* 
+      FIXME:
+
       <TaskWrapper>For Bookings....to be added</TaskWrapper>
       <PieChartWrapper>
         <PieChartComponent />
       </PieChartWrapper>
       <GraphWrapper>
         <Chart phones={phones} numDays={numDays} />
-      </GraphWrapper>
+      </GraphWrapper> 
+      */}
     </StyledDashboardContent>
   );
 }

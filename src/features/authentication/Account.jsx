@@ -1,17 +1,22 @@
-import ButtonOperation from "../../ui/ButtonOperation";
 import { MdAccountCircle } from "react-icons/md";
+import StyledNavLink from "../../ui/StyledNavLink";
 import ModalWindow from "../../ui/ModalWindow";
 import UpdateUserDataForm from "./UpdateUserDataForm";
 import UpdatePasswordForm from "./UpdatePasswordForm";
+
+const navLinkStyle = {
+  backgroundColor: 'transparent'
+}
 
 function Account() {
   return (
     <ModalWindow>
       <ModalWindow.Open opens="update-account">
-        <ButtonOperation>
-          <p>Account</p>
+        <StyledNavLink style={ navLinkStyle }>
           <MdAccountCircle size={20} />
-        </ButtonOperation>
+          <span>Account</span>
+        </StyledNavLink>
+
       </ModalWindow.Open>
 
       <ModalWindow.Window name="update-account">

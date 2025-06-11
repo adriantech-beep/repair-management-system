@@ -17,18 +17,7 @@ const Option = styled.li`
   position: relative;
 
   &:hover {
-    background-color: var(--color-grey-50);
-
-    &::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      right: 0em;
-      transform: translateY(-50%);
-      border-width: 0.7em;
-      border-style: solid;
-      border-color: transparent var(--color-brand-700) transparent transparent;
-    }
+    background-color: var(--color-grey-200);
   }
 `;
 

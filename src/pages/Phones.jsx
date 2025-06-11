@@ -5,17 +5,19 @@ import PhonetableOperation from "../phones/PhonetableOperation";
 
 function Phones() {
   return (
-    <>
-      <Row>
+    <div
+      className="my-10">
+      <Row 
+        className="mb-10"
+        type="horizontal">
         <PhonetableOperation />
+        <AddPhone /> 
       </Row>
 
       <Row type="vertical">
         <PhonesTable />
-
-        <AddPhone />
       </Row>
-    </>
+    </div>
   );
 }
 

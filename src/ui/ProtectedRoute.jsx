@@ -1,4 +1,4 @@
-import { useUser } from "../features/authentication/useUser";
+import useUser from "../features/authentication/useUser";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import styled from "styled-components";
@@ -22,6 +22,7 @@ function ProtectedRoute({ children }) {
     function () {
       if (!isAuthenticated && !isLoading) navigate("/login");
     },
+
     [isAuthenticated, isLoading, navigate]
   );
 

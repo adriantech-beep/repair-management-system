@@ -10,7 +10,7 @@ import ButtonSecondary from "../../ui/ButtonSecondary";
 
 const StyledLoginForm = styled.div`
   width: 100%;
-  max-width: 630px;
+  max-width: 100%;
   height: 420px;
 
   display: flex;
@@ -35,7 +35,6 @@ const LogoSection = styled.div`
     height: 100%;
 
     img {
-      width: 100%;
       height: 100%;
     }
   }
@@ -76,18 +75,21 @@ function LoginForm() {
   return (
     <StyledLoginForm>
       <FormSection>
-        <div>
+        <div className="mb-20">
           <LogoComponent />
         </div>
         <div>
-          <Heading as="h4">Please sign in to your account</Heading>
+          <Heading 
+            as="h4">Please sign in to your account</Heading>
         </div>
 
         <StyledForm onSubmit={handleSubmit}>
           <label htmlFor="email"></label>
           <Input
+            className="pt-10"
             type="email"
             id="email"
+            placeholder="Email address"
             autoComplete="username"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -97,14 +99,15 @@ function LoginForm() {
           <Input
             type="password"
             id="password"
+            placeholder="Password.."
             value={password}
             autoComplete="password"
             onChange={(e) => setPassword(e.target.value)}
             disabled={isPending}
           />
-          <div>
+          <div className="w-100">
             <ButtonSecondary
-              // variation="primary"
+              className="bg-green-800 text-white"
               size="large"
               disabled={isPending}
             >
@@ -115,7 +118,7 @@ function LoginForm() {
       </FormSection>
 
       <LogoSection>
-        <div>
+        <div className="flex justify-center">
           <img src={BackgroundImage} />
         </div>
       </LogoSection>

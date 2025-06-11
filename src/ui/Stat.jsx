@@ -22,7 +22,7 @@ const Title = styled.h5`
 `;
 
 const Value = styled.h1`
-  font-size: 2.4rem;
+  font-size: 3.8rem;
   line-height: 1;
   font-weight: 500;
 `;
