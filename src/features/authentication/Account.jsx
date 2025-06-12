@@ -2,28 +2,23 @@ import { MdAccountCircle } from "react-icons/md";
 import StyledNavLink from "../../ui/StyledNavLink";
 import ModalWindow from "../../ui/ModalWindow";
 import UpdateUserDataForm from "./UpdateUserDataForm";
-import UpdatePasswordForm from "./UpdatePasswordForm";
 
 const navLinkStyle = {
-  backgroundColor: 'transparent'
-}
+  backgroundColor: "transparent",
+};
 
 function Account() {
   return (
     <ModalWindow>
       <ModalWindow.Open opens="update-account">
-        <StyledNavLink style={ navLinkStyle }>
+        <StyledNavLink style={navLinkStyle}>
           <MdAccountCircle size={20} />
           <span>Account</span>
         </StyledNavLink>
-
       </ModalWindow.Open>
 
       <ModalWindow.Window name="update-account">
-        <div>
-          <UpdateUserDataForm />
-          <UpdatePasswordForm />
-        </div>
+        <UpdateUserDataForm />
       </ModalWindow.Window>
     </ModalWindow>
   );

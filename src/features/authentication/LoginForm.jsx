@@ -1,8 +1,9 @@
+import { useState } from "react";
+import { useLogin } from "./useLogin";
+
 import styled from "styled-components";
 import LogoComponent from "../../ui/Logo";
 import BackgroundImage from "../../assets/background-image.jpg";
-import { useState } from "react";
-import { useLogin } from "./useLogin";
 import SpinnerMini from "../../ui/SpinnerMini";
 import Input from "../../ui/Input";
 import Heading from "../../ui/Heading";
@@ -53,8 +54,8 @@ const StyledForm = styled.form`
 `;
 
 function LoginForm() {
-  const [email, setEmail] = useState("adrian@example.com");
-  const [password, setPassword] = useState("speaker123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const { login, isPending } = useLogin();
 
@@ -79,8 +80,7 @@ function LoginForm() {
           <LogoComponent />
         </div>
         <div>
-          <Heading 
-            as="h4">Please sign in to your account</Heading>
+          <Heading as="h4">Please sign in to your account</Heading>
         </div>
 
         <StyledForm onSubmit={handleSubmit}>

@@ -3,7 +3,7 @@ import Switcher from "../ui/Switcher";
 
 import { jobOrderChecklist } from "../utilities/constants";
 
-const StyledCheckListForm = styled.div`
+const StyledCheckList = styled.div`
   width: 80rem;
   display: flex;
   flex-direction: column;
@@ -11,7 +11,7 @@ const StyledCheckListForm = styled.div`
   justify-content: flex-start;
 `;
 
-const CheckListWrapper = styled.div`
+const CheckList = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0.2rem;
@@ -22,10 +22,14 @@ const CheckListWrapper = styled.div`
   }
 `;
 
-const renderChecklist = ( register, handleCheckboxChange, type='accessories' ) => {
+const renderChecklist = (
+  register,
+  handleCheckboxChange,
+  type = "accessories"
+) => {
   return jobOrderChecklist
     .filter((item) => item.type === type)
-    .map(( checklistItem ) => {
+    .map((checklistItem) => {
       const { name, label } = checklistItem;
 
       return (
@@ -34,26 +38,26 @@ const renderChecklist = ( register, handleCheckboxChange, type='accessories' ) =
           <Switcher 
             id={ name }
             name
-            {...register( name )}
+            {...register(name)}
             onChange={handleCheckboxChange}
           />
         </div>
-      )
-  })
-}
+      );
+    });
+};
 
 function CreateChecklist({ handleCheckboxChange, register }) {
   return (
-    <div className="flex flex-col wrap flex-1">
-      <section>
-        <h3 className="text-2xl font-medium  mb-4 text-center">Accesssories</h3>
-        { renderChecklist( register, handleCheckboxChange, 'accessories' ) }
-      </section>
-      <section className="mt-10">
-        <h3 className="text-2xl font-medium mb-4 text-center">Physical Condition</h3>
-        { renderChecklist( register, handleCheckboxChange, 'condition' ) }
-      </section>
-    </div>
+    <StyledCheckList>
+      <CheckList>
+        <h3 className="text-2xl mb-4">Accesssories</h3>
+        {renderChecklist(register, handleCheckboxChange, "accessories")}
+      </CheckList>
+      <CheckList>
+        <h3 className="text-2xl mb-4">Physical Condition</h3>
+        {renderChecklist(register, handleCheckboxChange, "condition")}
+      </CheckList>
+    </StyledCheckList>
   );
 }
 

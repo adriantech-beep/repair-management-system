@@ -7,19 +7,19 @@ export default function useUser() {
     queryFn: getCurrentUser,
   });
 
-  if( data ){
+  if (data) {
     return {
       isLoading,
-      user: data.user, 
+      user: data.user,
       isAuthenticated: data.user.role === "authenticated",
-      isAdmin: data.user_role !== 'user'
-    }
+      isAdmin: data.user_role !== "user",
+    };
   }
 
-  return { 
-    isLoading, 
-    user: null, 
+  return {
+    isLoading,
+    user: null,
     isAuthenticated: false,
-    isAdmin: false
+    isAdmin: false,
   };
 }
