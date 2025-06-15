@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useUpdatePhone } from "./useUpdatePhone";
 import { useMemo, useState } from "react";
-import { phoneModelOptions } from "../utilities/modelList";
 import { getDefaultCheckValues } from "../utilities/defaultCheckValues";
 
 import onError from "../utilities/formError";
@@ -57,7 +56,7 @@ function CreatePhoneForm({ phoneToEdit = {} }) {
     clearErrors,
     watch,
   } = useForm({
-    defaultValues: isEditSession ? defaultCheckValues : {},
+    defaultValues: isEditSession ? defaultCheckValues || phoneToEdit : {},
     mode: "onChange",
   });
 
@@ -107,12 +106,7 @@ function CreatePhoneForm({ phoneToEdit = {} }) {
   const isWorking = isCreating || isEditing;
 
   function onSubmit(data) {
-    const { 
-      phoneModel,
-      imei,
-      phoneCondition,
-      cost, 
-      assignee } = data;
+    const { phoneModel, imei, phoneCondition, cost, assignee } = data;
 
     const image = typeof data.image === "string" ? data.image : data.image[0];
 
@@ -128,7 +122,7 @@ function CreatePhoneForm({ phoneToEdit = {} }) {
 
     clearErrors("checklistGroup");
 
-    if (isEditSession){
+    if (isEditSession) {
       editPhone(
         {
           newPhoneData: {
@@ -148,8 +142,7 @@ function CreatePhoneForm({ phoneToEdit = {} }) {
           },
         }
       );
-    }
-    else{
+    } else {
       createPhone(
         { ...data, image: image, customer_id: customerID },
         {
@@ -188,7 +181,6 @@ function CreatePhoneForm({ phoneToEdit = {} }) {
           onError={onError}
           errors={errors}
           isWorking={isWorking}
-          phoneModelOptions={phoneModelOptions}
           handleSubmit={handleSubmit}
           control={control}
           register={register}
@@ -228,11 +220,7 @@ function CreatePhoneForm({ phoneToEdit = {} }) {
           >
             New Job Order
           </Button>
-          <Button
-            type="secondary"
-            >
-            Close
-          </Button>
+          <Button type="secondary">Close</Button>
         </div>
       )}
     </StyledFormContainer>

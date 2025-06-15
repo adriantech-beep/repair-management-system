@@ -1,4 +1,6 @@
 import { Controller } from "react-hook-form";
+import { phoneModelOptions } from "../utilities/modelList";
+import { useAssignee } from "../assignee/useAssignee";
 
 import CreatableSelect from "react-select/creatable";
 import Button from "../ui/Button";
@@ -8,8 +10,6 @@ import FormRow from "../ui/FormRow";
 import Input from "../ui/Input";
 import CreateChecklist from "./CreateChecklist";
 import styled from "styled-components";
-
-import { useAssignee } from '../assignee/useAssignee';
 
 const StyledSelect = styled.select`
   background-color: var(--color-grey-100);
@@ -36,7 +36,6 @@ function PhoneForm({
   onError,
   errors,
   isWorking,
-  phoneModelOptions,
   handleSubmit,
   control,
   register,
@@ -52,16 +51,20 @@ function PhoneForm({
   const { technicians } = useAssignee();
 
   const renderTechnicianSelection = () => {
-    if( technicians ){
-      return technicians.map(( technician, _ind ) => {
+    if (technicians) {
+      return technicians.map((technician, _ind) => {
         const { id, name } = technician;
-  
-        return <option value={id} key={`${id}-${name}-option`} >{ name }</option>
+
+        return (
+          <option value={id} key={`${id}-${name}-option`}>
+            {name}
+          </option>
+        );
       });
     }
 
     return null;
-  }
+  };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit, onError)} type={"modal"}>
@@ -76,6 +79,9 @@ function PhoneForm({
                 <CreatableSelect
                   isDisabled={isWorking}
                   options={phoneModelOptions}
+                  value={phoneModelOptions.find(
+                    (phoneModel) => phoneModel.value === field.value
+                  )}
                   onChange={(val) => field.onChange(val?.value)}
                 />
               )}
@@ -123,8 +129,8 @@ function PhoneForm({
                 required: "This field is required",
               })}
             >
-              <option value={ null }>Select technician</option>
-              { renderTechnicianSelection() }
+              <option value={null}>Select technician</option>
+              {renderTechnicianSelection()}
             </StyledSelect>
           </FormRow>
           <FormRow label="Image (Optional)" error={errors?.image?.message}>
