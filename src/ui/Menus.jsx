@@ -115,8 +115,9 @@ function Toggle({ id }) {
 
     openId === "" || openId !== id ? open(id) : close();
   }
+
   return (
-    <StyledToggle onClick={handleClick}>
+    <StyledToggle data-toggle onClick={handleClick}>
       <HiEllipsisVertical />
     </StyledToggle>
   );
@@ -125,7 +126,10 @@ function Toggle({ id }) {
 function List({ id, children }) {
   const { openId, position, close } = useContext(MenusContext);
 
-  const ref = useOutsideClick(close, false);
+  const ref = useOutsideClick((e) => {
+    if (e.target.closest("button[data-toggle]")) return;
+    close();
+  }, false);
 
   if (openId !== id) return null;
 
